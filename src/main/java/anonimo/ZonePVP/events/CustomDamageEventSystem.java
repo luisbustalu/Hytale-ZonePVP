@@ -8,7 +8,6 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.dependency.Dependency;
 import com.hypixel.hytale.component.dependency.RootDependency;
 import com.hypixel.hytale.component.query.Query;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
@@ -40,7 +39,6 @@ public class CustomDamageEventSystem extends DamageEventSystem {
 
                 if (!ZoneUtils.isPvPEnabled(victim)) {
                     damage.setCancelled(true);
-                    attackerPlayerComponent.sendMessage(Message.raw("PvP is not enabled in that area."));
                 }
             }
         }

@@ -1,7 +1,7 @@
 {
   "Group": "anonimo",
   "Name": "ZonePVP",
-  "Version": "0.2",
+  "Version": "0.3",
   "Description": "Enables PvP based in the Zone tier where the victim is standing.",
   "Authors": [
     {
