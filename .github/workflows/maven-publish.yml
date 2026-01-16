@@ -4,6 +4,13 @@
 name: Maven Package
 
 on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual run'
+        required: false
+        default: 'Manual trigger'
+
   release:
     types: [created]
 
