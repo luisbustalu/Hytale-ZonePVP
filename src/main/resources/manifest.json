@@ -1,0 +1,19 @@
+{
+  "Group": "anonimo",
+  "Name": "ZonePVP",
+  "Version": "0.1",
+  "Description": "Enables PvP based in the Zone tier where the victim is standing.",
+  "Authors": [
+    {
+      "Name": "Anonimo",
+      "Email": "luis@anonimo.ovh",
+      "Url": "https://anonimo.ovh/"
+    }
+  ],
+  "Website": "",
+  "ServerVersion": "*",
+  "Dependencies": {},
+  "OptionalDependencies": {},
+  "DisabledByDefault": false,
+  "Main": "anonimo.ZonePVP.Main"
+}
