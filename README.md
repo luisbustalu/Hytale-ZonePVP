@@ -1,4 +1,4 @@
-# ZonePVP
+<img src="images/logo.png" width="100" height="100" alt="logo">
 
 A dynamic PvP management plugin for Hytale that automatically toggles player combat status based on the region they are currently standing in.
 
@@ -7,6 +7,8 @@ A dynamic PvP management plugin for Hytale that automatically toggles player com
 * **Zone-Based Logic:** Automatically detects if a region is a "PvP Zone" based on its name (e.g., Zone1, Zone2).
 * **Configurable Thresholds:** Set a minimum "Tier" requirement to trigger PvP.
 * **Live Notifications:** Sends immediate feedback to players when they enter or leave dangerous areas.
+
+<img src="images/pvp_enabled.png" alt="pvp enabled notification"/> <img src="images/pvp_disabled.png" alt="pvp disabled notification"/> 
 
 ## Configuration
 
