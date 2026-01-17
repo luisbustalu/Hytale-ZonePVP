@@ -23,23 +23,37 @@ public class CustomDamageEventSystem extends DamageEventSystem {
 
     @Override
     public void handle(int index, @NonNullDecl ArchetypeChunk<EntityStore> archetypeChunk, @NonNullDecl Store<EntityStore> store, @NonNullDecl CommandBuffer<EntityStore> commandBuffer, @NonNullDecl Damage damage) {
-        Ref<EntityStore> ref = archetypeChunk.getReferenceTo(index);
-        Player victim = store.getComponent(ref, Player.getComponentType());
-
         if(damage.isCancelled()) {
             return;
         }
 
+        // We get the reference id of the victim and try to get the Player component for it
+        Ref<EntityStore> ref = archetypeChunk.getReferenceTo(index);
+        Player victim = store.getComponent(ref, Player.getComponentType());
+
+        // We detect if it's not a player
+        if(victim == null) {
+            return;
+        }
+
+        // We get the reference id of the attacker and try to get the Player component for it
         if (damage.getSource() instanceof Damage.EntitySource damageEntitySource) {
             Ref<EntityStore> attackerRef = damageEntitySource.getRef();
 
-            if (attackerRef.isValid()) {
-                Player attackerPlayerComponent = commandBuffer.getComponent(attackerRef, Player.getComponentType());
-                assert attackerPlayerComponent != null;
+            if (!attackerRef.isValid()) {
+                return;
+            }
 
-                if (!ZoneUtils.isPvPEnabled(victim)) {
-                    damage.setCancelled(true);
-                }
+            Player attackerPlayerComponent = commandBuffer.getComponent(attackerRef, Player.getComponentType());
+
+            // We detect if it's not a player
+            if(attackerPlayerComponent == null) {
+                return;
+            }
+
+            // If code reaches this point and PvP is disabled based in the region, we cancel the damage.
+            if(!ZoneUtils.isPvPEnabled(victim)) {
+                damage.setCancelled(true);
             }
         }
     }
