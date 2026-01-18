@@ -35,15 +35,19 @@ public class PvPStatusChange extends EntityTickingSystem<EntityStore> {
         this.playerLastNotification = new ConcurrentHashMap<>();
     }
 
-    public void changeLastNotification(UUID uuid, boolean status) {
-        this.playerLastNotification.put(uuid, status ? PVP_ENABLED_TITLE : PVP_DISABLED_TITLE);
-    }
-
     @Override
     public void tick(float v, int index, @NonNullDecl ArchetypeChunk<EntityStore> archetypeChunk, @NonNullDecl Store<EntityStore> store, @NonNullDecl CommandBuffer<EntityStore> commandBuffer) {
         Ref<EntityStore> ref = archetypeChunk.getReferenceTo(index);
         PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
         Player player = store.getComponent(ref, Player.getComponentType());
+
+        if (playerRef == null|| player == null) {
+            return;
+        }
+
+        if (player.isWaitingForClientReady()) {
+            return;
+        }
 
         boolean isPvPEnabled = ZoneUtils.isPvPEnabled(player);
         String notificationText = isPvPEnabled ? PVP_ENABLED_TITLE : PVP_DISABLED_TITLE;
@@ -51,7 +55,6 @@ public class PvPStatusChange extends EntityTickingSystem<EntityStore> {
         String notificationDesc = isPvPEnabled ? PVP_ENABLED_DESC : PVP_DISABLED_DESC;
         String notificationIcon = isPvPEnabled ? PVP_ENABLED_ICON : PVP_DISABLED_ICON;
 
-        assert playerRef != null;
         String previousNotification = playerLastNotification.get(playerRef.getUuid());
         if (!notificationText.equals(previousNotification)) {
             var packetHandler = playerRef.getPacketHandler();
@@ -68,10 +71,6 @@ public class PvPStatusChange extends EntityTickingSystem<EntityStore> {
 
             playerLastNotification.put(playerRef.getUuid(), notificationText);
         }
-    }
-
-    public void removePlayer(UUID playerId) {
-        playerLastNotification.remove(playerId);
     }
 
     @NullableDecl

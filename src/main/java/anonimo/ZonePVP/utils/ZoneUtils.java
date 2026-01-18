@@ -26,6 +26,11 @@ public class ZoneUtils {
         }
 
         String zoneName = worldMapTracker.getCurrentZone().regionName(); // e.g., "Zone1_Tier1"
+
+        if (zoneName.equals("ForgottenTemple")) {
+            return false;
+        }
+
         Matcher matcher = ZONE_PATTERN.matcher(zoneName);
 
         if (matcher.find()) {
