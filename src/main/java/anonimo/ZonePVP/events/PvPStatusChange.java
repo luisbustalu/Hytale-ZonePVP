@@ -1,6 +1,8 @@
 package anonimo.ZonePVP.events;
 
+import anonimo.ZonePVP.Main;
 import anonimo.ZonePVP.utils.ZoneUtils;
+import anonimo.ZonePVP.utils.PluginMessages;
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
@@ -22,14 +24,14 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PvPStatusChange extends EntityTickingSystem<EntityStore> {
+    Message PVP_ENABLED_TITLE = PluginMessages.PVP_ENABLED_TITLE;
+    Message PVP_DISABLED_TITLE = PluginMessages.PVP_DISABLED_TITLE;
+    Message PVP_ENABLED_DESC = PluginMessages.PVP_ENABLED_DESC;
+    Message PVP_DISABLED_DESC = PluginMessages.PVP_DISABLED_DESC;
+    private static final String PVP_ENABLED_ICON = Main.CONFIG.get().getPvPEnabledIcon();
+    private static final String PVP_DISABLED_ICON = Main.CONFIG.get().getPvPDisabledIcon();
 
-    private static final String PVP_ENABLED_TITLE = "PvP is enabled";
-    private static final String PVP_DISABLED_TITLE = "PvP is disabled";
-    private static final String PVP_ENABLED_DESC = "This is a dangerous field. Watch out!";
-    private static final String PVP_DISABLED_DESC = "Peaceful grounds again. Welcome to the safe zone.";
-    private static final String PVP_ENABLED_ICON = "Weapon_Sword_Adamantite";
-    private static final String PVP_DISABLED_ICON = "Weapon_Shield_Orbis_Knight";
-    private final Map<UUID, String> playerLastNotification;
+    private final Map<UUID, Message> playerLastNotification;
 
     public PvPStatusChange() {
         this.playerLastNotification = new ConcurrentHashMap<>();
@@ -50,17 +52,17 @@ public class PvPStatusChange extends EntityTickingSystem<EntityStore> {
         }
 
         boolean isPvPEnabled = ZoneUtils.isPvPEnabled(player);
-        String notificationText = isPvPEnabled ? PVP_ENABLED_TITLE : PVP_DISABLED_TITLE;
+        Message notificationText = isPvPEnabled ? PVP_ENABLED_TITLE : PVP_DISABLED_TITLE;
         Color notificationColor = isPvPEnabled ? Color.RED : Color.GREEN;
-        String notificationDesc = isPvPEnabled ? PVP_ENABLED_DESC : PVP_DISABLED_DESC;
+        Message notificationDesc = isPvPEnabled ? PVP_ENABLED_DESC : PVP_DISABLED_DESC;
         String notificationIcon = isPvPEnabled ? PVP_ENABLED_ICON : PVP_DISABLED_ICON;
 
-        String previousNotification = playerLastNotification.get(playerRef.getUuid());
-        if (!notificationText.equals(previousNotification)) {
+        Message previousNotification = playerLastNotification.get(playerRef.getUuid());
+        if (!(notificationText == previousNotification)) {
             var packetHandler = playerRef.getPacketHandler();
 
-            Message primaryMessage = Message.raw(notificationText).color(notificationColor);
-            Message secondaryMessage = Message.raw(notificationDesc).color(Color.WHITE);
+            Message primaryMessage = notificationText.color(notificationColor);
+            Message secondaryMessage = notificationDesc.color(Color.WHITE);
             var icon = new ItemStack(notificationIcon, 1).toPacket();
 
             NotificationUtil.sendNotification(

@@ -1,0 +1,4 @@
+pvp.status.enabled.title = PvP is enabled
+pvp.status.enabled.desc = This is a dangerous field. Watch out!
+pvp.status.disabled.title = PvP is disabled
+pvp.status.disabled.desc = Peaceful grounds again. Welcome to the safe zone.

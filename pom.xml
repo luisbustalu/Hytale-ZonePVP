@@ -6,7 +6,7 @@
 
     <groupId>anonimo</groupId>
     <artifactId>ZonePVP</artifactId>
-    <version>0.5</version>
+    <version>0.6</version>
 
     <properties>
         <maven.compiler.source>24</maven.compiler.source>

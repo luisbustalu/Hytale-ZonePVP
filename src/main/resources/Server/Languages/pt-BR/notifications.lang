@@ -1,0 +1,4 @@
+pvp.status.enabled.title = PvP ativado
+pvp.status.enabled.desc = Este é um campo perigoso. Fique atento!
+pvp.status.disabled.title = PvP desativado
+pvp.status.disabled.desc = Terras pacíficas novamente. Bem-vindo à zona segura.
