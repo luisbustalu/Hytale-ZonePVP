@@ -18,14 +18,21 @@ The plugin identifies regions containing the word "Zone" followed by a number. Y
 
 ### Default Settings
 ```json
-    {
-      "MinZone": 2
-    }
+{
+    "MinZone": 2,
+    "PvPEnabledIcon": "Weapon_Sword_Adamantite",
+    "PvPDisabledIcon": "Weapon_Shield_Orbis_Knight"
+}
 ```
+
+PvPEnabledIcon and PvPDisabledIcon must be valid Item IDs. You can explore all the items IDs by entering in creative mode and hovering your mouse over any item.
 
 ### How it works:
 * **MinZone 2:** PvP is ENABLED in Zone2, Zone3, and higher. PvP is DISABLED in Zone1.
 * **MinZone 3:** PvP is ENABLED in Zone3, Zone4, and higher. PvP is DISABLED in Zone1 and Zone2.
+
+### Multi-language support
+At the moment, the plugin supports en-US, es-ES, es-MX and pt-BR languages. If player have any of the language packages available in CurseForge installed and selected in the configuration, the plugin will try to use the translated message. Feel free to create new pull requests to add your own language or suggest changes to any of the translations.
 
 ## Player Experience
 
